@@ -1,15 +1,23 @@
 #!/usr/bin/python3
-"""Get subs count for a subreddit"""
+"""
+    Uses Reddit API to print the number of subscribers of a subreddit
+"""
 import requests
 
 
 def number_of_subscribers(subreddit):
-    """Number of subs"""
-    url = 'https://www.reddit.com/r/{}/about.json'.format(subreddit)
-    header = {'User-Agen': 'number_of_subs/1.0'}
-    res = requests.get(url, headers=header, allow_redirects=False)
-    if res.status_code == 200:
-        data = res.json()
-        return data.get('data').get('subscribers')
+    """
+    Get the number of subscribers for a given subreddit
+    """
+    url = f"https://www.reddit.com/r/{subreddit}/about.json"
+    headers = {'user-agent': 'request'}
+    response = requests.get(url, headers=headers, allow_redirects=False)
 
-    return 0
+    if response.status_code != 200:
+        return 0
+
+    data = response.json().get("data")
+    num_subs = data.get("subscribers")
+
+
+    return num_subs

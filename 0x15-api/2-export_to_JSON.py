@@ -1,8 +1,10 @@
 #!/usr/bin/python3
-"""gather data from API"""
+"""gather data from API save to csv"""
 
+import json
 import requests
 from sys import argv
+
 
 if __name__ == "__main__":
     try:
@@ -15,21 +17,21 @@ if __name__ == "__main__":
     employee_data = requests.get(f'{URL}/users/{user_ID}').json()
     if employee_data == {}:
         exit()
-    emp_name = employee_data.get('name')
+    username = employee_data.get('username')
 
     # get all Tasks for all employees
     tasks_list = requests.get(f'{URL}/todos').json()
 
-    n_tasks = 0
-    n_done_tasks = 0
-    todo_tasks_list = []
+    employee_tasks_list = []
+    user_task_dict = {}
+
     for task in tasks_list:
         if task.get('userId') == user_ID:
-            n_tasks += 1
-            if task.get('completed'):
-                n_done_tasks += 1
-                todo_tasks_list.append(task.get('title'))
-
-    print(f"Employee {emp_name} is done with tasks({n_done_tasks}/{n_tasks}):")
-    for task in todo_tasks_list:
-        print(f"\t {task}")
+            employee_tasks_list.append({
+                "task": task.get('title'),
+                "completed": task.get('completed'),
+                "username": username,
+            })
+    user_task_dict[f"{user_ID}"] = employee_tasks_list
+    with open(f"{user_ID}.json", "w") as outfile:
+        json.dump(user_task_dict, outfile)

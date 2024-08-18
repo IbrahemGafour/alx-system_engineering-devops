@@ -6,7 +6,7 @@ Issue Summary:
 
 Duration of Outage: The outage started at 12:45 AM and was resolved by 04:40 AM.
 
-12:45 PM: Issue detected with automated monitoring alerts showing increased response time.
+12:45 AM: Issue detected with automated monitoring alerts showing increased response time.
 
 01:15 AM: The engineering team was notified of the slowdown via an automated alert.
 
@@ -35,6 +35,7 @@ Improvements/Fixes:
 Strengthen monitoring to detect abnormal query patterns in real time.
 Regularly review and update system configurations to prevent misconfigurations.
 Implement automated testing for caching layer configurations during deployment.
+
 Tasks to Address the Issue:
 Implement stricter access controls for configuration changes to prevent accidental misconfigurations.
 Conduct a thorough review of existing caching mechanisms to identify and eliminate potential bottlenecks.
